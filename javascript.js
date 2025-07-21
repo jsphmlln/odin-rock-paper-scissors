@@ -35,7 +35,7 @@ function playRound(){
 
     console.log(`Player: ${player}`)
     console.log(`Computer: ${computer}`)
-    
+
     if (player === "ROCK"){
         if (computer === "PAPER"){
             console.log(cw);
@@ -43,7 +43,10 @@ function playRound(){
         }
         if (computer === "SCISSORS"){
             console.log(pw);
-            playerScore ++;
+            humanScore ++;
+        }
+        if (computer === "ROCK"){
+            console.log('Draw');
         }
     } else if (player === "PAPER"){
         if (computer === "SCISSORS"){
@@ -52,7 +55,10 @@ function playRound(){
         }
         if (computer === "ROCK"){
             console.log(pw);
-            playerScore ++;
+            humanScore ++;
+        }
+        if (computer === "PAPER"){
+            console.log('Draw');
         }
     } else if (player === "SCISSORS"){
         if (computer === "ROCK"){
@@ -61,14 +67,31 @@ function playRound(){
         }
         if (computer === "PAPER"){
             console.log(pw);
-            playerScore ++;
+            humanScore ++;
         }
-    } else {
-        console.log("Draw.");
+        if (computer === "SCISSORS"){
+            console.log('Draw');
+        }
     }
 
-    console.clear();
-    playRound();
+    playAgain();
+}
+
+function playAgain(){
+    let decision = prompt("Play Again (y): ")
+    decision = decision.toLowerCase();
+    if (decision === 'y'){
+        playRound();
+    } else {
+        console.log(`Final Score: ${humanScore}/${computerScore}`);
+        if (computerScore > humanScore){
+            console.log(cw);
+        } else if (computerScore < humanScore){
+            console.log(pw);
+        } else if (computerScore === humanScore){
+            console.log("Draw");
+        }
+    }
 }
 
 playRound();
