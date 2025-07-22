@@ -11,87 +11,87 @@ function getComputerChoice(){
     return i;
 }
 
-function getHumanChoice(){
-    let i;
-    let choice = prompt("Your Choice: ");
-    choice = choice.toUpperCase();
-    if (choice == "ROCK" || choice == "PAPER" || choice == "SCISSORS"){
-        i = choice;
-        return i;
-    } else {
-        return getHumanChoice();
+function playRound(playerChoice){
+    let computerChoice = getComputerChoice()
+
+    player.textContent = `Player: ${playerChoice}`
+    computer.textContent = `Computer: ${computerChoice}`
+
+    if (playerChoice === "ROCK"){
+        if (computerChoice === "PAPER"){
+            result.textContent = `Result: ${cw}`
+            computerScore ++
+        }
+        if (computerChoice === "SCISSORS"){
+            result.textContent = `Result: ${pw}`
+            humanScore ++
+        }
+        if (computerChoice === "ROCK"){
+            result.textContent = `Result: Draw`
+        }
+
+    } else if (playerChoice === "PAPER"){
+        if (computerChoice === "SCISSORS"){
+            result.textContent = `Result: ${cw}`
+            computerScore ++
+        }
+        if (computerChoice === "ROCK"){
+            result.textContent = `Result: ${pw}`
+            humanScore ++
+        }
+        if (computerChoice === "PAPER"){
+            result.textContent = `Result: Draw`
+        }
+
+    } else if (playerChoice === "SCISSORS"){
+        if (computerChoice === "ROCK"){
+            result.textContent = `Result: ${cw}`
+            computerScore ++
+        }
+        if (computerChoice === "PAPER"){
+            result.textContent = `Result: ${pw}`
+            humanScore ++
+        }
+        if (computerChoice === "SCISSORS"){
+            result.textContent = `Result: Draw`
+        }
+    }
+    scores.textContent = `Player: ${humanScore}  Computer: ${computerScore}`
+
+
+    if (humanScore === 5 || computerScore === 5){
+        if (humanScore === 5){
+            alert(`${humanScore}/${computerScore}\nPlayer Wins the Game!`)
+        } else {
+            alert(`${humanScore}/${computerScore}\nComputer Wins the Game!`)
+        }
+        rock.disabled = true;
+        paper.disabled = true;
+        scissors.disabled = true;
     }
 }
 
-let humanScore = 0;
-let computerScore = 0;
-const cw = "Computer Wins";
-const pw = "Player Wins";
+//===============================================================//
 
-function playRound(){
-    console.log(`Player: ${humanScore}  Computer: ${computerScore}`)
-    let player = getHumanChoice();
-    let computer = getComputerChoice();
+let humanScore = 0
+let computerScore = 0
+const cw = "Computer Wins"
+const pw = "Player Wins"
 
-    console.log(`Player: ${player}`)
-    console.log(`Computer: ${computer}`)
+const container = document.querySelector("#container")
 
-    if (player === "ROCK"){
-        if (computer === "PAPER"){
-            console.log(cw);
-            computerScore ++;
-        }
-        if (computer === "SCISSORS"){
-            console.log(pw);
-            humanScore ++;
-        }
-        if (computer === "ROCK"){
-            console.log('Draw');
-        }
-    } else if (player === "PAPER"){
-        if (computer === "SCISSORS"){
-            console.log(cw);
-            computerScore ++;
-        }
-        if (computer === "ROCK"){
-            console.log(pw);
-            humanScore ++;
-        }
-        if (computer === "PAPER"){
-            console.log('Draw');
-        }
-    } else if (player === "SCISSORS"){
-        if (computer === "ROCK"){
-            console.log(cw);
-            computerScore ++;
-        }
-        if (computer === "PAPER"){
-            console.log(pw);
-            humanScore ++;
-        }
-        if (computer === "SCISSORS"){
-            console.log('Draw');
-        }
-    }
+const player = document.querySelector("#player");
+const computer = document.querySelector("#computer");
+const result = document.querySelector("#result");
 
-    playAgain();
-}
+const rock = document.querySelector("#rock")
+const paper = document.querySelector("#paper")
+const scissors = document.querySelector("#scissors")
 
-function playAgain(){
-    let decision = prompt("Play Again (y): ")
-    decision = decision.toLowerCase();
-    if (decision === 'y'){
-        playRound();
-    } else {
-        console.log(`Final Score: ${humanScore}/${computerScore}`);
-        if (computerScore > humanScore){
-            console.log(cw);
-        } else if (computerScore < humanScore){
-            console.log(pw);
-        } else if (computerScore === humanScore){
-            console.log("Draw");
-        }
-    }
-}
+rock.onclick = () => {playRound("ROCK")}
+paper.onclick = () => {playRound("PAPER")}
+scissors.onclick = () => {playRound("SCISSORS")}
 
-playRound();
+const scores = document.createElement("div")
+scores.textContent = "Player: 0  Computer: 0"
+container.appendChild(scores);
